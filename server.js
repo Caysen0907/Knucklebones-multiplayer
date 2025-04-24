@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://closingtagrequired.online", // your IONOS frontend domain
+    origin: "https://your-ionos-domain.com", // Replace with your IONOS domain
     methods: ["GET", "POST"]
   }
 });
