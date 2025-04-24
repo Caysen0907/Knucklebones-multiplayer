@@ -1,12 +1,13 @@
 {
-  "name": "knucklebones-multiplayer",
+  "name": "knucklebones-server",
   "version": "1.0.0",
+  "description": "Backend server for Knucklebones game",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.17.1",
     "socket.io": "^4.5.4"
   }
 }
