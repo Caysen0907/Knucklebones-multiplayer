@@ -6,7 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://closingtagrequired.online",
+    origin: "https://closingtagrequired.online", // your IONOS frontend domain
     methods: ["GET", "POST"]
   }
 });
@@ -28,7 +28,6 @@ io.on('connection', (socket) => {
 
     const playerNumber = rooms[room].length;
     socket.emit('playerNumber', playerNumber);
-    console.log(`Player ${playerNumber} joined room ${room}`);
 
     if (rooms[room].length === 2) {
       io.to(room).emit('startGame');
@@ -40,9 +39,9 @@ io.on('connection', (socket) => {
     io.to(socket.roomId).emit('rolled', roll, socket.id);
   });
 
-  socket.on('placeDie', (col, roll) => {
+  socket.on('placeDie', (col, roll, playerNum) => {
     const room = socket.roomId;
-    socket.to(room).emit('opponentMove', col, roll);
+    socket.to(room).emit('opponentMove', col, roll, playerNum);
     socket.to(room).emit('yourTurn');
   });
 
@@ -53,7 +52,6 @@ io.on('connection', (socket) => {
       if (rooms[room].length === 0) delete rooms[room];
       socket.to(room).emit('opponentLeft');
     }
-    console.log('User disconnected:', socket.id);
   });
 });
 
